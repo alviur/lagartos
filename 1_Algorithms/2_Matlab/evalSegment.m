@@ -1,7 +1,8 @@
-close all;
-Igt = imread('GroundTrue3.png');
+function Ifinal1=evalSegment(Igt,Iresult)
+%Igt = imread('GroundTrue3.png');
 Igt = Igt(:,:,1);
-Iresult = imread('resultadoMRF3_color.png');
+%Igt =resize(Igt, [500 500]);
+%Iresult = imread('resultadoMRF3_color.png');
 Iresult = Iresult(:,:,1);
 
 [f,c] = size(Igt);
@@ -36,8 +37,8 @@ imshow(Ifinal1);
 figure;
 imshow(Ifinal1);
 
-% H = fspecial('average',5);
-% filtered = imerode(Iresult,H,'replicate');
+H = fspecial('average',5);
+filtered = imerode(Iresult,H,'replicate');
 
 se = strel('disk',2);
 erodedI = imerode(Iresult,se);
@@ -63,5 +64,7 @@ subplot(1,3,2);
 imshow(Ifinal1);
 subplot(1,3,3);
 imshow(Ifinal2);
+
+end
 
 

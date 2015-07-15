@@ -1,0 +1,48 @@
+#include <opencv2/opencv.hpp>
+#include <vector>       // std::vector
+
+#include <stdio.h>
+#include <stdlib.h>
+
+using namespace std;
+using namespace cv;
+
+int main(int argc, char** argv)
+{
+
+   //******************
+   //** DATA
+   //****************** 
+   char *infilename   = argv[1];//primer argumento despues del nombre del programa sera la imagen
+
+
+	cv::Mat image;//crea una imagen de dimensiones 0
+	cv::Mat image2;
+
+	image = cv::imread(infilename);
+	//cv::resize():
+
+	if(!image.data){ //comprueba si la imagen se cargo correctamente
+		cout<<"error al leer"<<endl;
+	}
+
+	else{
+		namedWindow("original image",0);//crea ventana para mostrar la imagen
+		namedWindow("processing image",0);//crea ventana para mostrar la imagen
+		
+		
+ 		GaussianBlur(image, image2, Size( 3, 3 ), 0, 0 );
+		for(int i=0;i<30;i++)
+		{
+		GaussianBlur(image2, image2, Size( 7, 7), 0, 0 );
+
+		}
+		
+		imshow("original image",image);//muestra la imagen
+		imshow("processing image",image2);//muestra la imagen
+
+	}
+	waitKey(0);//espera hasta que se presiones una tecla
+
+return 0;
+}
