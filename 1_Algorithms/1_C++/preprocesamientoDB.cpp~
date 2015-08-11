@@ -138,6 +138,6 @@ threshold(mask_color,mask_color,80,255,1);
 
    cv::waitKey();
 */
-   cv::imwrite(outfilenameCLAHE,image_clahe);// Guarda imagen CLAHE
+   cv::imwrite(outfilenameCLAHE,image_clahe);
 
 }
