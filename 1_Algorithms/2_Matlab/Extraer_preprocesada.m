@@ -8,7 +8,7 @@ clear all, close all, clc
 
 individuo0='ind';
 
-for i=1:20
+for i=6:6
     
     i
     
@@ -50,12 +50,12 @@ for i=1:20
         I=imread(PathIMG3);
         PathIMG3
 
-     %imshow(I)
-     %waitforbuttonpress
+     imshow(I)
+     waitforbuttonpress
 
         % Ejecuta programa en consola
 
-        PathEXE2= horzcat(PathEXE,' ',PathIMG3, PathSaveCLAHE2,PathSavePosterizada2,PathSaveColor2);
+        PathEXE2= horzcat(PathEXE,' ',PathIMG3, PathSaveCLAHE2,PathSavePosterizada2,PathSaveColor2)
         s = system(PathEXE2);
 
 
