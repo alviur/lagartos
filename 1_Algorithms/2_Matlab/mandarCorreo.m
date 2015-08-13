@@ -18,5 +18,4 @@ function mandarCorreo(mail,password,asunto,mensaje,mailTo)
     % Send the email.  Note that the first input is the address you are sending the email to
     sendmail(mailTo,asunto,mensaje);% Envia correo
 
-
 end

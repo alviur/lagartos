@@ -23,7 +23,7 @@
 %N: Noise
 
 
-function [CD,US,OS,M,N,regionesGT,regionesMS]=evalPerformance2(GT,MS,T)
+function [CD,US,OS,M,N]=evalPerformance2(GT,MS,T)
 
 
 %GT=imread('GT.png');
@@ -59,13 +59,12 @@ end
 
     %Label each image region
 
-        MS=not(MS);%USAR SOLO EN CASO DE GROUND TRUE VOLTIADO
+        MS=not(MS);
     
         LabelsGT = bwlabel(GT);
         LabelsMS = bwlabel(MS); 
         
-        regionesGT=max(LabelsGT(:));
-        regionesMS=max(LabelsMS(:));
+        regionesGT
 
        interception=and(GT,MS);%interception
        LabelsInter = bwlabel(interception);
