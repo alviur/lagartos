@@ -51,15 +51,24 @@ end
         N=0;
 
         
-        flagMS=0;
-        flagGT=0;
+    flagMS=0;
+    flagGT=0;
       flagM=0;
          
 
 
     %Label each image region
 
-        MS=not(MS);%USAR SOLO EN CASO DE GROUND TRUE VOLTIADO
+        MS=not(MS);%USAR SOLO EN CASO DE GROUND TRUE Negativo
+        MS=imfill(MS,'holes');
+        
+        
+%        imshow(MS);
+%        figure
+%        imshow(GT);
+%        waitforbuttonpress
+        
+        
     
         LabelsGT = bwlabel(GT);
         LabelsMS = bwlabel(MS); 
@@ -165,24 +174,29 @@ end
     %% Over- segmentation
     % Se consideran sobresegmentadas solo las regiones del GT
     
-    for i=1:max(LabelsGT(:))%% Por cada mancha en la intercepcion entre GT y MS
-    
+    for i=1:max(LabelsGT(:))%% Por cada mancha en GT
         
-        % primera condicion
+            
+        % Primera condicion--
         
-        interceptionInd=(LabelsGT==i);
+        interceptionInd=(LabelsGT==i);% Analiza la mancha i
         
-        intermedioMS=(LabelsMS).*(interceptionInd);  
+        intermedioMS=(LabelsMS).*(interceptionInd);  %Encuentra el indice de la mancha en la intercepcion
                 
-        interMS=intermedioMS>0;
+        interMS=intermedioMS>0;% Devuelve los pixelex blancos
+        
+
          
-         inter2MS=intermedioMS(interMS);
+         inter2MS=intermedioMS(interMS); 
          
-         for j=1:max(LabelsMS(:))
+         for j=1:max(LabelsMS(:))% Por cada imagen en MS
              
              if(find(inter2MS==j))
                  
-                 intermedioMSEval=intermedioMS(intermedioMS==j);
+                 intermedioMSEval=(intermedioMS==j);
+                 
+ 
+                 
                  M = nnz(intermedioMSEval);%Count non-zero elements
                  
                  if(M>=T*nnz(MS(LabelsMS==j)) &&   StatesN(1,i)~=1)
@@ -222,7 +236,9 @@ end
     for i=1:max(LabelsMS(:))%% Por cada mancha en la intercepcion entre GT y MS
     
         
-        % primera condicion
+        % - Primera condicion
+        %  T porcentaje de los pixeles en la region MS son marcados como
+        %  pixeles en la union de todas las regiones en GT
         
         interceptionInd=(LabelsMS==i);
         
@@ -236,7 +252,7 @@ end
              
              if(find(inter2GT==j))
                  
-                 intermedioGTEval=intermedioGT(intermedioGT==j);
+                 intermedioGTEval=(intermedioGT==j);
                  M = nnz(intermedioGTEval);%Count non-zero elements
            
                  
